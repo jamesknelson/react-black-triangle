@@ -1,5 +1,5 @@
 import "babel/polyfill";
-import {run} from "./utils/Chairman";
+import {initialize} from "./utils/Nori";
 
 // Controls
 import NavigationControl from "./controls/NavigationControl";
@@ -13,7 +13,7 @@ import BlackTriangleModel from "./models/BlackTriangleModel";
 import UserInterfaceActor from "./actors/UserInterfaceActor";
 
 
-const app = run({
+const app = initialize({
   controls: {
     Navigation: NavigationControl,
     BlackTriangle: BlackTriangleControl,

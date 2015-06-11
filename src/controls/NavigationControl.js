@@ -20,7 +20,10 @@ export default (Actions, Replayables) => ({
   initialize() {
     // If we don't need to redirect because of a missing slash or some other reason,
     // emit a navigatedTo event.
-    const onHashChange = () => ensureSlash() && Actions.navigatedTo(getRoute());
+    function onHashChange() {
+      ensureSlash();
+      Actions.navigatedTo(getRoute());
+    }
 
     window.addEventListener('hashchange', onHashChange, false);
     ensureSlash();
@@ -29,6 +32,6 @@ export default (Actions, Replayables) => ({
 
   // Triggered when the hash is updated, either by a link or by manual navigation
   navigatedTo(route) {
-    this({route});
+    this(route);
   },
 });

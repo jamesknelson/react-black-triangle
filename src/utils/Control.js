@@ -10,8 +10,17 @@ export default function control(builder, dispatcher, Replayables) {
 
   for (let [name, fn] of entries(functions)) {
     const subject = new Rx.Subject();
+    let trigger;
 
-    function trigger(value) { subject.onNext(value); }
+    if (name == "initialize") {
+      trigger = function(...args) {
+        subject.onNext(...args);
+        subject.onCompleted();
+      };
+    }
+    else {
+      trigger = subject.onNext.bind(subject);
+    }
 
     Observables[name] = subject.asObservable();
     Actions[name] = dispatcher.getAction(fn.bind(trigger));

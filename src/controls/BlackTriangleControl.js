@@ -3,11 +3,12 @@ export default (Actions, Replayables) => ({
     this(0);
   },
 
-  rotateLeft(angle) {
+  rotateLeft(angle=1) {
+    console.log(angle)
     this(angle);
   },
 
-  rotateRight(angle) {
+  rotateRight(angle=1) {
     this(angle);
   },
 });

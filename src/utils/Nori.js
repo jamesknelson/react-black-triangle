@@ -6,7 +6,7 @@ import reducer from "./reducer";
 import {entries} from "./functions";
 
 
-export function run({controls = {}, models = {}, reducers = {}, actors = {}}) {
+export function initialize({controls = {}, models = {}, reducers = {}, actors = {}}) {
   const dispatcher = new Dispatcher;
 
   const Actions = {};
