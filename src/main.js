@@ -1,12 +1,28 @@
 import "babel/polyfill";
-import React from "react";
-import Application from "./components/Application";
+import {run} from "./utils/Chairman";
+
+// Controls
+import NavigationControl from "./controls/NavigationControl";
+import BlackTriangleControl from "./controls/BlackTriangleControl";
+
+// Models
+import NavigationModel from "./models/NavigationModel";
+import BlackTriangleModel from "./models/BlackTriangleModel";
+
+// Actors
+import UserInterfaceActor from "./actors/UserInterfaceActor";
 
 
-React.initializeTouchEvents(true);
-
-// Hack to avoid flash of unstyled content
-window.setTimeout(
-  () => React.render(React.createElement(Application), document.getElementById('react-app')),
-  400
-);
+const app = run({
+  controls: {
+    Navigation: NavigationControl,
+    BlackTriangle: BlackTriangleControl,
+  },
+  models: {
+    Navigation: NavigationModel,
+    BlackTriangle: BlackTriangleModel,
+  },
+  actors: {
+    UserInterfaceActor
+  },
+});
