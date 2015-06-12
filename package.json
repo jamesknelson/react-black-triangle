@@ -7,7 +7,8 @@
   "private": true,
   "main": "static",
   "scripts": {
-    "start": "gulp --require babel/register",
+    "start": "gulp",
+    "open": "open http://localhost:3000",
     "test": "jest"
   },
   "devDependencies": {
