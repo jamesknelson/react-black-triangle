@@ -18,6 +18,10 @@ class Application extends Base {
   render() {
     let page;
 
+    //
+    // Create a component based on the current route
+    //
+    
     switch (this.props.route.name) {
       case "about":
         page = <AboutPage />;
