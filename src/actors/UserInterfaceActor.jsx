@@ -9,13 +9,11 @@ FastClick.attach(document.body);
 
 
 export default function UserInterfaceActor(Actions, Replayables) {
-  // Combine all our observable data into a single observable. You may want to
-  // add other observables such as the current logged in user.
   Rx.Observable.combineLatest(
     Replayables.Navigation,
     Replayables.BlackTriangle,
 
-    (route, angle) => ({route, angle})
+    (route, triangle) => ({route, triangle})
   )
     .subscribe(state => {
       React.render(

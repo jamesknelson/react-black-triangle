@@ -1,0 +1,57 @@
+.BlackTriangle {
+  &-inner {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:277.2px;
+    height:277.2px;
+    margin-top:-138.6px;
+    margin-left:-138.6px;
+    border-radius:100%;
+
+    &:before {
+      position:absolute;
+      z-index:1;
+      top:50%;
+      left:50%;
+      margin-top:-136px;
+      margin-left:-120px;
+      content:"";
+      width: 0; 
+      height: 0; 
+      border-style: solid;
+      border-width: 0 120px 207.8px 120px;
+      border-color: transparent transparent #000 transparent;
+    }
+  }
+
+  &-left, &-right {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -24px;
+    font-size: 24px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    transition: background-color ease-out 0.15s, color ease-out 0.15s;
+
+    &:hover {
+      color: black;
+      background-color: white;
+    }
+  }
+
+  &-left {
+    margin-left: -230px;
+  }
+
+  &-right {
+    margin-left: 230px;
+  }
+}

@@ -1,13 +1,13 @@
 export default (Actions, Replayables) => ({
   initialize() {
-    this(0);
+    this({speed: 90, angle: 0});
   },
 
-  rotateLeft(angle=1) {
-    this(angle);
+  adjustSpeed(speed) {
+    this({speed});
   },
 
-  rotateRight(angle=1) {
-    this(angle);
+  rotate(angle) {
+    this({angle});
   },
 });

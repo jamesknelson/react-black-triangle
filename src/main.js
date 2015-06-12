@@ -1,3 +1,5 @@
+require('./theme/theme.less')
+
 import "babel/polyfill";
 import {initialize} from "maxim";
 
@@ -11,6 +13,7 @@ import BlackTriangleModel from "./models/BlackTriangleModel";
 
 // Actors
 import UserInterfaceActor from "./actors/UserInterfaceActor";
+import AnimatorActor from "./actors/AnimatorActor";
 
 
 const app = initialize({
@@ -23,6 +26,7 @@ const app = initialize({
     BlackTriangle: BlackTriangleModel,
   },
   actors: {
-    UserInterfaceActor
+    UserInterfaceActor,
+    AnimatorActor
   },
 });
