@@ -19,7 +19,7 @@ export default (DEBUG, PORT) => ({
   debug: DEBUG,
 
   // For options, see http://webpack.github.io/docs/configuration.html#devtool
-  devtool: DEBUG && "inline-source-map",
+  devtool: DEBUG && "eval-source-map",
 
   module: {
     loaders: [

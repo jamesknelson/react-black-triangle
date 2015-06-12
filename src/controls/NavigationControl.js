@@ -1,5 +1,19 @@
-import {getRoute, getLocation} from "../utils/Router";
+import Router from "routr"
+import _ from "lodash"
 
+
+const router = new Router({
+  'about': {path: "/about", method: "get"},
+  'triangle': {path: "/triangle", method: "get"},
+});
+
+function getLocation() {
+  return window.location.hash.substr(1);
+}
+
+function getRoute() {
+  return router.getRoute(getLocation()) || {name: '404'};
+}
 
 // Make sure that there is a slash immediately following '#'
 function ensureSlash() {
@@ -14,7 +28,6 @@ function ensureSlash() {
     return false;
   }
 }
-
 
 export default (Actions, Replayables) => ({
   initialize() {

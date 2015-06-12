@@ -1,5 +1,5 @@
 import "babel/polyfill";
-import {initialize} from "./utils/Nori";
+import {initialize} from "maxim";
 
 // Controls
 import NavigationControl from "./controls/NavigationControl";

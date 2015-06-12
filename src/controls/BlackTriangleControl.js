@@ -4,7 +4,6 @@ export default (Actions, Replayables) => ({
   },
 
   rotateLeft(angle=1) {
-    console.log(angle)
     this(angle);
   },
 

@@ -17,10 +17,10 @@ export default function UserInterfaceActor(Actions, Replayables) {
 
     (route, angle) => ({route, angle})
   )
-    .subscribe(state =>
+    .subscribe(state => {
       React.render(
         <Application actions={Actions} {...state} />,
         document.getElementById('react-app')
       )
-    );
+    });
 }
