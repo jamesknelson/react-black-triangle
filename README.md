@@ -23,7 +23,7 @@ Presto, Black Triangle!
 
 - Your directory structure is sorted as soon as you `git clone`
 - ES6 compilation and automatic-reloading development server are all handled by `npm start`
-- [Maxim](https://github.com/jamesknelson/maxim) (based on [RxJS](https://github.com/Reactive-Extensions/RxJS)) makes your data flow easy to reason about - Events start at your controls, then flow through your models, reducers, actors, and finally through your components to the user's screen.
+- [Maxim](https://github.com/jamesknelson/maxim) (based on [RxJS](https://github.com/Reactive-Extensions/RxJS)) makes your data flow easy to reason about
 - CSS conventions and helper functions *completely eliminate* bugs caused by conflicting styles
 - Elegant routing is included *without* depending on the confusing `react-router`
 - A simple layout is included to help you get started on the important stuff right away
@@ -61,11 +61,15 @@ Start building!
 
 ### Model
 
-Your model is managed by [Maxim](https://github.com/jamesknelson/maxim) - which gives you four clear types of modules with well defined responsibilities:
+Your data - including routes, authentication, view model data, and anything else you can imagine - is managed by [Maxim](https://github.com/jamesknelson/maxim).
+
+Maxim is similar to Facebook's [Flux](https://facebook.github.io/flux/), in that data flow is unidirectional. Events start at your Controls, then flow through your Models, Reducers, Actors, and finally through your Components to the user's screen.
+
+Maxim gives you four classes with well defined responsibilities:
 
 #### Controls
 
-All possible actions which can affect the state of your model are defined in these files.
+All possible actions which can affect the state of your model are defined in these Controls.
 
 Each `control` file defines a number of action functions. Action functions can do things which change the outside world (like making HTTP requests or setting timers), and can call other actions in the same control module (as long as the calls are in a separate tick).
 
