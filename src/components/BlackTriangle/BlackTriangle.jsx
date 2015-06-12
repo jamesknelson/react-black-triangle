@@ -5,6 +5,7 @@ export default class BlackTriangle extends Base {
   render() {
     return (
       <div className={this.getComponentClasses()}>
+        <h1>Use buttons to change rotation speed</h1>
         <div
           className={this.c("inner")}
           style={{transform: `rotate(${this.props.angle}deg)`}}
