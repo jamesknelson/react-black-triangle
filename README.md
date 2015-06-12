@@ -1,8 +1,25 @@
 # react-black-triangle
 
-<small>HELLO: react-black-triangle (and [Maxim](https://github.com/jamesknelson/maxim)) are  at v0.1 - if you find this neat, please help me out by indicating where you'd like to see more documentation!</small>
+*HELLO: react-black-triangle (and [Maxim](https://github.com/jamesknelson/maxim)) are  at v0.1 - if you find this neat, you can help make it even better by letting me know where you'd like to see more documentation!*
 
-**react-black-triangle provides you with the code and conventions you need to get straight into building your React-based app.** Heres a rundown:
+**react-black-triangle provides you with the code and conventions you need to get straight into building your React-based app.**
+
+## Happiness is six lines away
+
+*Prerequisites: node.js and git*
+
+```
+git clone git@github.com:jamesknelson/react-black-triangle.git [your-repo-name]
+cd repo
+npm install
+npm install -g gulp jest
+npm start
+npm run open # (from a different console window, otherwise open localhost:3000)
+```
+
+Presto, Black Triangle!
+
+## Why use react-black-triangle?
 
 - Your directory structure is sorted as soon as you `git clone`
 - ES6 compilation and automatic-reloading development server are all handled by `npm start`
@@ -13,25 +30,6 @@
 - Comes with a cool spinning [Black Triangle](http://rampantgames.com/blog/?p=7745) - *how fucking awesome is that?!*
 
 ## Getting Started
-
-You only need 2 minutes to get things (literally) moving/spinning/etc. 
-
-### Happiness is six lines away
-
-<small>Prerequisites: note.js and git</small>
-
-```
-git clone -o ... repo
-cd repo
-npm install
-npm install -g gulp jest
-npm start2
-npm run open # (from a different console window, otherwise open localhost:3000)
-```
-
-Presto, Black Triangle!
-
-### What to do next
 
 Put your name on it:
 
