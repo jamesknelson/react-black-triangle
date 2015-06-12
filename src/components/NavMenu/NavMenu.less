@@ -1,0 +1,42 @@
+.NavMenu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.24);
+
+  &-inner {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.NavMenuItem {
+  display: block;
+  height: 64px;
+  color: black;
+  text-decoration: none;
+  background-color: #ffffff;
+  transition: color ease-out 0.15s, background-color ease-out 0.15s;
+
+  &-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    padding: 8px;
+    margin: 12px 24px 12px 16px;
+  }
+
+  &-title {
+    display: inline-block;
+    margin: 12px 0;
+    line-height: 40px;
+    vertical-align: top;
+  }
+
+  &:hover {
+    color: #2985e0;
+    background-color: lighten(#2985e0, 47%);
+  }
+}

@@ -1,11 +1,4 @@
-import Router from "routr"
-import _ from "lodash"
-
-
-const router = new Router({
-  'about': {path: "/about", method: "get"},
-  'triangle': {path: "/triangle", method: "get"},
-});
+import router from "../utils/router";
 
 function getLocation() {
   return window.location.hash.substr(1);

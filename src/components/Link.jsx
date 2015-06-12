@@ -1,49 +1,47 @@
-equal = require('deep-equal')
-React = require('react')
-Reflux = require('reflux')
-routes = require('../../routes')
-AppStore = require('../../stores/AppStore')
+import React from "react";
+import equal from "deep-equal";
+import Base from "./Base";
+import router from "../utils/router";
 
 
-isLeftClickEvent = (event) ->
-  event.button == 0
+class Link extends Base {
+  isActive() {
+    const stateParts = this.context.currentRoute.name.split('.');
+    const propsParts = this.props.to.split('.');
 
-isModifiedEvent = (event) ->
-  !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey)
+    return (
+      equal(stateParts.slice(0, propsParts.length), propsParts) &&
+      (!this.props.params || equal(this.context.currentRoute.params, this.props.params))
+    );
+  }
 
+  render() {
+    const activeClass = this.isActive() ? ' '+this.props.activeClassName : '';
 
-module.exports = React.createClass
-  mixins: [
-    Reflux.listenTo(AppStore, "onRouteChange")
-  ]
+    return (
+      <a
+        {...this.props}
+        href={'#'+router.makePath(this.props.to, this.props.params)}
+        className={this.getComponentClasses() + activeClass}>
+        {this.props.children}
+      </a>
+    );
+  }
+}
 
-  propTypes:
-    activeClassName: React.PropTypes.string.isRequired
-    to: React.PropTypes.string.isRequired
-    params: React.PropTypes.object
-    query: React.PropTypes.object
+Link.contextTypes = {
+  Actions: React.PropTypes.object,
+  currentRoute: React.PropTypes.object
+};
 
-  getDefaultProps: ->
-    activeClassName: 'active'
+Link.propTypes = {
+  activeClassName: React.PropTypes.string.isRequired,
+  to: React.PropTypes.string.isRequired,
+  params: React.PropTypes.object
+};
 
-  getInitialState: ->
-    currentRoute: AppStore.getCurrentRoute()
+Link.defaultProps = {
+  activeClassName: "Link-active"
+};
 
-  onRouteChange: ->
-    @setState(@getInitialState())
-
-  isActive: ->
-    stateParts = @state.currentRoute.name.split('.')
-    propsParts = @props.to.split('.')
-
-    equal(stateParts.slice(0, propsParts.length), propsParts) and
-    (!@props.params or equal(@state.currentRoute.params, @props.params))
-
-  render: ->
-    activeClassName = if @isActive() then @props.activeClassName+' ' else ''
-
-    linkOptions = Object.assign {}, @props, 
-      href: '#'+routes.makePath(@props.to, @props.params)
-      className: 'Link ' + activeClassName + (@props.className ? '')
-
-    React.DOM.a(linkOptions, @props.children);
+export default Link;

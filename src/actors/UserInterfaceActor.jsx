@@ -17,7 +17,7 @@ export default function UserInterfaceActor(Actions, Replayables) {
   )
     .subscribe(state => {
       React.render(
-        <Application actions={Actions} {...state} />,
+        <Application Actions={Actions} {...state} />,
         document.getElementById('react-app')
       )
     });
