@@ -19,6 +19,8 @@ npm run open # (from a different console window, otherwise open localhost:3000)
 
 Presto, Black Triangle!
 
+![react-black-triangle](http://jamesknelson.com/black-triangle.png)
+
 ## Why use react-black-triangle?
 
 - Your directory structure is sorted as soon as you `git clone`
