@@ -59,6 +59,10 @@ Start building!
 - Bask in the glory of your creation
 - Don't forget to commit your changes and push to bitbucket or github!
 
+Show your friends
+
+- Run `gulp dist` to output a web-ready build of your app to `dist`
+
 ## Structure
 
 ### Model
