@@ -1,6 +1,3 @@
-require('./theme/theme.less')
-
-import "babel/polyfill";
 import {initialize} from "maxim";
 
 // Controls

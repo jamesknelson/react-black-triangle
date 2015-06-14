@@ -2,15 +2,18 @@ import path from "path";
 import webpack from "webpack";
 
 
-export default (DEBUG, PORT) => ({
-  entry: [
+export default (DEBUG, PATH, PORT=3000) => ({
+  entry: (DEBUG ? [
     `webpack-dev-server/client?http://localhost:${PORT}`,
-    "webpack/hot/dev-server",
-    "./src/main"
-  ],
+    'webpack/hot/dev-server'
+  ] : []).concat([
+    './src/theme/theme.less',
+    'babel/polyfill',
+    './src/main'
+  ]),
 
   output: {
-    path: path.resolve(__dirname, "build", "generated"),
+    path: path.resolve(__dirname, PATH, "generated"),
     filename: "main.js",
     publicPath: "/generated/"
   },
@@ -47,7 +50,13 @@ export default (DEBUG, PORT) => ({
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ]
-    : [],
+    : [
+      new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.AggressiveMergingPlugin()
+    ],
 
   resolve: {
     modulesDirectories: [
