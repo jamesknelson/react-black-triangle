@@ -10,9 +10,9 @@
 
 ```
 git clone git@github.com:jamesknelson/react-black-triangle.git [your-repo-name]
-cd repo
+cd [your-repo-name]
 npm install
-npm install -g gulp jest
+npm install -g gulp
 npm start
 npm run open # (from a different console window, otherwise open localhost:3000)
 ```
@@ -36,8 +36,8 @@ Presto, Black Triangle!
 Put your name on it:
 
 - Update name and author in package.json
-- Update app title in `src/static/index.html`
-- Restart the dev server (make sure to do this after any changes to `src/static`)
+- Update app title in `src/index.html`
+- Restart the dev server (make sure to do this after any changes to `src/index.html`)
 
 Make sure your editor is happy
 
@@ -133,6 +133,7 @@ Other directories:
 
 - `build` - Intermediate files produced by the development server. Don't touch these.
 - `src/utils` - Pure functions which you may want to use across your entire project go here
+- `src/static` - Files which will be copied across to the root directory on build
 
 Individual modules (documentation coming soon):
 
@@ -142,9 +143,9 @@ Individual modules (documentation coming soon):
 - `src/components/Link.jsx`
 - `src/controls/NavigationControl.js`
 - `src/models/NavigationModel.js`
-- `src/static/index.html`
 - `src/theme/theme.less`
 - `src/utils/router.js`
+- `src/index.html`
 - `src/main.js`
 
 And other files:
@@ -154,4 +155,4 @@ And other files:
 
 ## TODO
 
-- Watch `static` for changes and copy them across to `build` when appropriate
+- Watch `static` and `index.html` for changes and copy them across to `build` when appropriate

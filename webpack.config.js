@@ -1,5 +1,6 @@
 import path from "path";
 import webpack from "webpack";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
 
 
 export default (DEBUG, PATH, PORT=3000) => ({
@@ -30,8 +31,10 @@ export default (DEBUG, PATH, PORT=3000) => ({
       { test: /\.jsx?$/, include: path.join(__dirname, "src"), loader: "babel-loader" },
 
       // Load styles
-      { test: /\.css$/, loader: "style!css!autoprefixer" },
-      { test: /\.less$/, loader: "style!css!autoprefixer!less" },
+      { test: /\.less$/,
+        loader: DEBUG
+          ? "style!css!autoprefixer!less"
+          : ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader!less-loader") },
 
       // Load images
       { test: /\.jpg/, loader: "url-loader?limit=10000&mimetype=image/jpg" },
@@ -52,8 +55,12 @@ export default (DEBUG, PATH, PORT=3000) => ({
     ]
     : [
       new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
+      new ExtractTextPlugin("style.css", {allChunks: false}),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {screw_ie8: true, keep_fnames: true, warnings: false},
+        mangle: {screw_ie8: true, keep_fnames: true}
+      }),
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin()
     ],

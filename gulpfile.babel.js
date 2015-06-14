@@ -1,4 +1,5 @@
 import del from "del";
+import path from "path";
 import gulp from "gulp";
 import gulpLoadPlugins from "gulp-load-plugins";
 import packageJson from "./package.json";
@@ -8,21 +9,21 @@ import webpackConfig from "./webpack.config";
 import WebpackDevServer from "webpack-dev-server";
 
 
-const ENVIRONMENT = process.env.NODE_ENV
-const DEBUG = ENVIRONMENT !== "production";
 const PORT = process.env.PORT || 3000;
-const WEBPACK_CONFIG = webpackConfig(DEBUG, PORT);
 const $ = gulpLoadPlugins({camelize: true});
 
 
-// Run when no task is supplied to gulp, i.e. plain ol' `gulp`
-gulp.task('default', () => runSequence('clean', 'serve'));
+// Main tasks
+gulp.task('serve', () => runSequence('serve:clean', 'serve:index', 'serve:start'));
+gulp.task('dist', () => runSequence('dist:clean', 'dist:build', 'dist:index'));
+gulp.task('clean', ['dist:clean', 'serve:clean']);
 
 // Remove all built files
-gulp.task('clean', () => del('build', {dot: true}));
+gulp.task('serve:clean', cb => del('build', {dot: true}, cb));
+gulp.task('dist:clean', cb => del(['dist', 'dist-intermediate'], {dot: true}, cb));
 
-// Copy static files to our `build` directory
-gulp.task('static', () => 
+// Copy static files across to our final directory
+gulp.task('serve:static', () => 
   gulp.src([
     'src/static/**'
   ])
@@ -31,11 +32,44 @@ gulp.task('static', () =>
     .pipe($.size({title: 'static'}))
 );
 
-// Start a livereloading server
-gulp.task('serve', ['static'], () => 
-  new WebpackDevServer(webpack(WEBPACK_CONFIG), {
+gulp.task('dist:static', () => 
+  gulp.src([
+    'src/static/**'
+  ])
+    .pipe(gulp.dest('dist'))
+    .pipe($.size({title: 'static'}))
+);
+
+// Copy our index file and inject css/script imports for this build
+gulp.task('serve:index', () => {
+  return gulp.src('src/index.html')
+    .pipe($.injectString.after('<!-- inject:app:js -->', '<script src="generated/main.js"></script>'))
+    .pipe(gulp.dest('build'));
+});
+
+// Copy our index file and inject css/script imports for this build
+gulp.task('dist:index', () => {
+  const app = gulp.src(["*.{css,js}"], {cwd: 'dist-intermediate/generated'})
+    .pipe($.rev())
+    .pipe(gulp.dest('dist'));
+
+  // Build the index.html using the names of compiled files
+  return gulp.src('src/index.html')
+    .pipe($.inject(app, {
+      ignorePath: 'dist',
+      starttag: '<!-- inject:app:{{ext}} -->'
+    }))
+    .on("error", $.util.log)
+    .pipe(gulp.dest('dist'));
+});
+
+// Start a livereloading development server
+gulp.task('serve:start', ['serve:static'], () => {
+  const config = webpackConfig(true, 'build', PORT);
+
+  return new WebpackDevServer(webpack(config), {
     contentBase: 'build',
-    publicPath: WEBPACK_CONFIG.output.publicPath,
+    publicPath: config.output.publicPath,
     hot: true,
     watchDelay: 100
   })
@@ -43,5 +77,18 @@ gulp.task('serve', ['static'], () =>
       if (err) throw new $.util.PluginError('webpack-dev-server', err);
 
       $.util.log(`[${packageJson.name} serve]`, `Listening at 0.0.0.0:${PORT}`);
-    })
-);
+    });
+});
+
+// Create a distributable package
+gulp.task('dist:build', ['dist:static'], cb => {
+  const config = webpackConfig(false, 'dist-intermediate');
+
+  webpack(config, (err, stats) => {
+    if (err) throw new $.util.PluginError('dist', err);
+
+    $.util.log(`[${packageJson.name} dist]`, stats.toString({colors: true}));
+
+    cb();
+  });
+});

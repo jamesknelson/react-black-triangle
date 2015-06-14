@@ -7,7 +7,7 @@
   "private": true,
   "main": "static",
   "scripts": {
-    "start": "gulp",
+    "start": "gulp serve",
     "open": "open http://localhost:3000",
     "test": "jest"
   },
@@ -18,9 +18,13 @@
     "babel-loader": "^5.1.4",
     "css-loader": "^0.14.4",
     "del": "^1.2.0",
+    "extract-text-webpack-plugin": "^0.8.1",
     "gulp": "^3.9.0",
     "gulp-changed": "^1.2.1",
+    "gulp-inject": "^1.3.1",
+    "gulp-inject-string": "0.0.2",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-rev": "^4.0.0",
     "gulp-size": "^1.2.1",
     "gulp-util": "^3.0.5",
     "less": "^2.5.1",
