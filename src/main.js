@@ -22,8 +22,8 @@ const app = initialize({
     Navigation: NavigationModel,
     BlackTriangle: BlackTriangleModel,
   },
-  actors: {
+  actors: [
     UserInterfaceActor,
     AnimatorActor
-  },
+  ],
 });

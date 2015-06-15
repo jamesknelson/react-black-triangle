@@ -28,7 +28,7 @@ export default (Actions, Replayables) => ({
     // emit a navigatedTo event.
     function onHashChange() {
       ensureSlash();
-      Actions.navigatedTo(getRoute());
+      Actions.Navigation.navigatedTo(getRoute());
     }
 
     window.addEventListener('hashchange', onHashChange, false);
