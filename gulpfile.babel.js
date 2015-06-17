@@ -1,6 +1,7 @@
 import del from "del";
 import path from "path";
 import gulp from "gulp";
+import open from "open";
 import gulpLoadPlugins from "gulp-load-plugins";
 import packageJson from "./package.json";
 import runSequence from "run-sequence";
@@ -17,6 +18,7 @@ const $ = gulpLoadPlugins({camelize: true});
 gulp.task('serve', () => runSequence('serve:clean', 'serve:index', 'serve:start'));
 gulp.task('dist', () => runSequence('dist:clean', 'dist:build', 'dist:index'));
 gulp.task('clean', ['dist:clean', 'serve:clean']);
+gulp.task('open', () => open('http://localhost:3000'));
 
 // Remove all built files
 gulp.task('serve:clean', cb => del('build', {dot: true}, cb));
