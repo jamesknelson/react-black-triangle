@@ -44,15 +44,16 @@ gulp.task('dist:static', () =>
 
 // Copy our index file and inject css/script imports for this build
 gulp.task('serve:index', () => {
-  return gulp.src('src/index.html')
+  return gulp
+    .src('src/index.html')
     .pipe($.injectString.after('<!-- inject:app:js -->', '<script src="generated/main.js"></script>'))
     .pipe(gulp.dest('build'));
 });
 
 // Copy our index file and inject css/script imports for this build
 gulp.task('dist:index', () => {
-  const app = gulp.src(["*.{css,js}"], {cwd: 'dist-intermediate/generated'})
-    .pipe($.rev())
+  const app = gulp
+    .src(["*.{css,js}"], {cwd: 'dist-intermediate/generated'})
     .pipe(gulp.dest('dist'));
 
   // Build the index.html using the names of compiled files

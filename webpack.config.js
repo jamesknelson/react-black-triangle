@@ -15,7 +15,7 @@ export default (DEBUG, PATH, PORT=3000) => ({
 
   output: {
     path: path.resolve(__dirname, PATH, "generated"),
-    filename: "main.js",
+    filename: DEBUG ? "main.js" : "main-[hash].js",
     publicPath: "/generated/"
   },
 
